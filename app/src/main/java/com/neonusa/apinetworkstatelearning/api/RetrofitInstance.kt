@@ -1,6 +1,5 @@
 package com.neonusa.apinetworkstatelearning.api
 
-import app.com.youtubeapiv3.api.YoutubeApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

@@ -1,7 +1,6 @@
 package com.neonusa.apinetworkstatelearning.ui.home
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.neonusa.apinetworkstatelearning.api.RetrofitInstance
@@ -14,9 +13,9 @@ class HomeViewModel : ViewModel() {
 
     fun getChannelVideoList()= Coroutines.main {
         val response = RetrofitInstance.api.getChannelVideos()
-        Log.e("response",response.toString())
+        Log.i("HomeViewModel","LOADING...")
         if(response.isSuccessful){
-            Log.e("success",response.toString())
+            Log.i("HomeViewModel","getChannelVideList : response success")
             channelVideoList.postValue(response.body()?.items)
         }else{
             Log.e("error","${response.code().toString()} ${response.message()}")
