@@ -25,32 +25,17 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        if (requireContext().isInternetAvailable()) {
-            viewModel.getChannelVideoList()
-            viewModel.channelVideoList.observe(viewLifecycleOwner) {
-                binding.rvHome.layoutManager = LinearLayoutManager(context)
-
-                val adapter = VideoAdapter(it)
-                binding.rvHome.adapter = adapter
-
-//            Log.i("data", "$it")
-                Log.i("HomeFragment", "hello from HomeFragment")
-            }
-        } else {
-//            showErrorState()
-        }
+        viewModel  =  ViewModelProvider(this).get(HomeViewModel::class.java)
 
 //        viewModel.getChannelVideoList()
 //        viewModel.channelVideoList.observe(viewLifecycleOwner) {
@@ -64,6 +49,35 @@ class HomeFragment : Fragment() {
 //        }
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (requireContext().isInternetAvailable()) {
+//            viewModel.getChannelVideoList()
+//            viewModel.channelVideoList.observe(viewLifecycleOwner) {
+//                binding.rvHome.layoutManager = LinearLayoutManager(context)
+//
+//                val adapter = VideoAdapter(it)
+//                binding.rvHome.adapter = adapter
+//
+////            Log.i("data", "$it")
+//                Log.i("HomeFragment", "hello from HomeFragment")
+//            }
+//            viewModel.getVideoLlist()
+//            Log.i("HomeFragment", "onViewCreated: hello from home fragment")
+
+//            viewModel.getVideolist()
+            viewModel.channelVideoList.observe(viewLifecycleOwner){
+                binding.rvHome.layoutManager = LinearLayoutManager(context)
+                val adapter = VideoAdapter(it)
+                binding.rvHome.adapter = adapter
+                Log.i("HomeFragment", "hello from HomeFragment")
+            }
+        } else {
+//            showErrorState()
+        }
+
     }
 
     override fun onDestroyView() {

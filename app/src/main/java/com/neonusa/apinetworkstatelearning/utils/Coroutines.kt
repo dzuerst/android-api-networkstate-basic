@@ -8,9 +8,10 @@ import kotlinx.coroutines.launch
 
 object Coroutines {
 
-    fun main(work: suspend (() -> Unit)) = CoroutineScope(Dispatchers.Main).launch {
+    // parameternya adalah sebuah suspend function
+    // akan terus memanggil function work
+    fun main(work: suspend (() -> Unit) ) = CoroutineScope(Dispatchers.Main).launch {
         work()
-        Log.i("Coroutines", "main: coroutin main function is running")
     }
 
     fun IO(work: suspend (() -> Unit)) = CoroutineScope(Dispatchers.IO).launch {
